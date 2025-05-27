@@ -1,15 +1,20 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const ApplicationContext = createContext();
 
 export function ApplicationProvider({ children }) {
 
-    const matheus = 'teste'
+    const [authUser, setAuthUser] = useState(false)
+
+    const loginOrLogoutUser = (isAuth) => {
+        setAuthUser(isAuth)
+    }
 
     return (
         <ApplicationContext.Provider
             value={{
-                matheus
+                loginOrLogoutUser,
+                authUser
             }}>
             {children}
         </ApplicationContext.Provider>

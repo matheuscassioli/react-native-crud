@@ -3,20 +3,23 @@ import { useContext, useState } from 'react'
 import { Text, View, TextInput, StyleSheet, Button } from 'react-native'
 import { ApplicationContext } from '../../contexts/ApplicationContext.jsx'
 import { colors } from '../../src/styles/colors.js'
+import { useNavigation } from '@react-navigation/native'
 
 const Login = () => {
 
-    const { matheus } = useContext(ApplicationContext)
+    const { loginOrLogoutUser } = useContext(ApplicationContext)
 
+    const navigation = useNavigation();
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
 
     const login = () => {
-        console.warn('user', user)
-        console.warn('password', password)
-
         if (user == 'admin' && password == '1234') {
+            loginOrLogoutUser(true)
 
+            setTimeout(() => {
+                navigation.navigate('Lista');
+            }, 400)
         }
     }
 
@@ -54,13 +57,24 @@ const Login = () => {
 
 const styles = StyleSheet.create({
     containerLogin: {
-        width: '90%',
-        paddingVertical: 16,
-        paddingHorizontal: 0,
+        flex: 1,
+        backgroundColor: '#242424',
+        padding: 16,
+        justifyContent: 'center',
     },
     labelLogin: {
         color: 'white',
+        marginBottom: 4,
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: 'white',
+        color: 'white',
+        marginBottom: 10,
+        padding: 8,
+        borderRadius: 4,
     },
 });
+
 
 export default Login
