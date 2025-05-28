@@ -1,34 +1,79 @@
-import { useContext } from "react"
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native"
-import { ApplicationContext } from "../../contexts/ApplicationContext"
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useState } from "react"
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList } from "react-native"
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import LogoutButton from "../LogoutButton";
 
-const Lista = () => {
+const list = () => {
+    const [task, setTask] = useState('')
+    const [list, setList] = useState([]);
 
-    const { loginOrLogoutUser } = useContext(ApplicationContext)
 
-    const logout = () => {
-        loginOrLogoutUser(false)
+    const addTAsk = () => {
+        if (task.trim() === '') return;
+        setList([...list, task]);
+        setTask('');
     }
 
     return (
         <View style={styles.containerList}>
 
-            <TouchableOpacity onPress={logout} style={styles.logoutButton}>
-                <Text style={styles.logoutText}>
-                    <Icon name="logout" size={16} color="#fff" />
-                </Text>
-            </TouchableOpacity>
+            <LogoutButton />
 
-            <Text style={styles.listaText}>
-                Lista
-            </Text>
+            <View >
+
+                <View style={{ display: 'flex', flexDirection: 'row', width: '100%', marginBottom: 1 }}>
+
+                    <TextInput
+                        placeholder="Adicionar tarefa"
+                        placeholderTextColor="gray"
+                        value={task}
+                        onChangeText={setTask}
+                        style={{
+                            width: '88%',
+                            borderWidth: 1,
+                            marginBottom: 10,
+                            padding: 8,
+                            borderColor: 'white',
+                            color: 'white',
+                        }} />
+
+                    <TouchableOpacity
+                        style={{
+                            backgroundColor: "#9810fa",
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: 4,
+                            width: 40,
+                            height: 40,
+                            marginLeft: 4,
+                        }}
+                        onPress={addTAsk}   >
+                        <Text >
+                            <FontAwesomeIcon name="plus" size={16} color="#fff" />
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+
+                <FlatList
+                    style={{
+                        maxHeight: 200,
+                        height: 200
+                    }}
+                    data={list}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item }) =>
+                        <Text style={{ color: 'white', fontSize: 18 }}>
+                            {item}
+                        </Text>} />
+            </View>
+
         </View>
     )
 }
 
 
-export default Lista
+export default list
 
 const styles = StyleSheet.create({
     containerList: {
@@ -50,8 +95,5 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
     },
-    listaText: {
-        color: 'white',
-        fontSize: 20,
-    },
+
 })

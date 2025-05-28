@@ -26,16 +26,19 @@ function Routes() {
   return (
     <Stack.Navigator>
 
-      {!authUser && <Stack.Screen options={{
-        animation: 'slide_from_left',
-        transitionSpec: {
-          open: { animation: 'timing', config: { duration: 15 } }
-        }
-      }} name="Login" component={Login} />}
+      {authUser && <Stack.Screen
+        options={{
+          animation: 'slide_from_left',
+        }}
+        name="Login"
+        component={Login} />}
 
-      {authUser && <Stack.Screen options={{
-        animation: 'slide_from_right',
-      }} name="Lista" component={Lista} />}
+      {!authUser && <Stack.Screen
+        options={{
+          animation: 'slide_from_right',
+        }}
+        name="Lista"
+        component={Lista} />}
 
     </Stack.Navigator>
   );

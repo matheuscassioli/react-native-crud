@@ -60,5 +60,5 @@ A ideia é **recriar** o mesmo projeto que eu já havia feito anteriormente usan
 1. Clone o repositório:
 
 ```bash
-git clone <link-do-repositório>
+git clone <https://github.com/matheuscassioli/react-native-crud>
 ```
