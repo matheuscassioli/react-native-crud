@@ -2,10 +2,10 @@ import Login from './components/Login/Login';
 import { ApplicationContext, ApplicationProvider } from './contexts/ApplicationContext.jsx';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Lista from './components/Login/Lista.js';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { useContext } from 'react';
-
+import List from './components/List/List.js';
+ 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -37,8 +37,8 @@ function Routes() {
         options={{
           animation: 'slide_from_right',
         }}
-        name="Lista"
-        component={Lista} />}
+        name="List"
+        component={List} />}
 
     </Stack.Navigator>
   );

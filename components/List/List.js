@@ -1,17 +1,27 @@
 import { useState } from "react"
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, FlatList } from "react-native"
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import LogoutButton from "../LogoutButton";
+import LogoutButton from "../LogoutButton/LogoutButton";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const list = () => {
+const List = () => {
     const [task, setTask] = useState('')
     const [list, setList] = useState([]);
 
-
     const addTAsk = () => {
         if (task.trim() === '') return;
-        setList([...list, task]);
+        const uniqueId = new Date()
+        const newTask = {
+            task,
+            id: uniqueId
+        }
+        setList([...list, newTask])
         setTask('');
+    }
+
+    const deleteTask = (taskId) => {
+        const newList = list.filter(listItem => listItem.id !== taskId)
+        setList(newList)
     }
 
     return (
@@ -61,11 +71,34 @@ const list = () => {
                         height: 200
                     }}
                     data={list}
+                    ListEmptyComponent={<Text style={{ color: 'white' }}>Não há itens</Text>}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) =>
-                        <Text style={{ color: 'white', fontSize: 18 }}>
-                            {item}
-                        </Text>} />
+                    renderItem={({ item }) => {
+
+                        const taskItem = item.task
+                        const taskId = item.id
+
+                        return <View style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: "space-between",
+                            flexDirection: "row",
+                            marginTop: 6,
+                        }}>
+                            <Text style={{
+                                color: 'white',
+                                fontSize: 18,
+
+                            }}>
+                                {taskItem}
+
+                            </Text>
+                            <TouchableOpacity onPress={() => deleteTask(taskId)}>
+                                <Ionicons name="trash-outline" size={20} color="red" />
+                            </TouchableOpacity>
+                        </View>
+                    }}
+                />
             </View>
 
         </View>
@@ -73,7 +106,7 @@ const list = () => {
 }
 
 
-export default list
+export default List
 
 const styles = StyleSheet.create({
     containerList: {

@@ -1,8 +1,8 @@
 import { StyleSheet, Text } from 'react-native'
 import { TouchableOpacity } from 'react-native'
-import { ApplicationContext } from '../contexts/ApplicationContext'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { useContext } from 'react';
+import { ApplicationContext } from '../../contexts/ApplicationContext';
 
 const LogoutButton = () => {
 
@@ -12,9 +12,14 @@ const LogoutButton = () => {
         loginOrLogoutUser(false)
     }
 
-    return <TouchableOpacity onPress={logout} style={styles.logoutButton}>
+    return <TouchableOpacity
+        onPress={logout}
+        style={styles.logoutButton}>
         <Text style={styles.logoutText}>
-            <MaterialIcon name="logout" size={16} color="#fff" />
+            <MaterialIcon
+                name="logout"
+                size={16}
+                color="#fff" />
         </Text>
     </TouchableOpacity>
 }
